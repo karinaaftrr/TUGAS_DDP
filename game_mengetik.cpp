@@ -139,3 +139,129 @@ void tampilkanMenuAwal() {
         }
     }
 }
+
+int tampilkanMenuLevel() {
+    int sorot = 0;
+    const int baris = 5, kolom = 4;
+    const int levelPerHalaman = baris * kolom;
+
+    while (true) {
+        clear();
+        mvprintw(LINES / 2 - baris / 2 - 2, (COLS - 18) / 2, "=== Select Levels ===");
+
+        int mulaiY = (LINES - baris) / 2;
+        int mulaiX = (COLS - (kolom * 15)) / 2;
+
+        for (int barisIndex = 0; barisIndex < baris; ++barisIndex) {
+            for (int kolomIndex = 0; kolomIndex < kolom; ++kolomIndex) {
+                int indeks = barisIndex * kolom + kolomIndex;
+                if (indeks >= totalLevel) break;
+
+                int posisiY = mulaiY + barisIndex;
+                int posisiX = mulaiX + kolomIndex * 15;
+
+                if (indeks == sorot) {
+                    attron(A_REVERSE | A_BOLD);
+                }
+                if (indeks < levelMaksTersedia) {
+                    mvprintw(posisiY, posisiX, "Level %d", indeks + 1);
+                } else {
+                    mvprintw(posisiY, posisiX, "locked");
+                }
+                attroff(A_REVERSE | A_BOLD);
+            }
+        }
+
+        refresh();
+
+        int ch = getch();
+        switch (ch) {
+            case KEY_UP:
+                if (sorot >= kolom) sorot -= kolom;
+                break;
+            case KEY_DOWN:
+                if (sorot + kolom < totalLevel) sorot += kolom;
+                break;
+            case KEY_LEFT:
+                if (sorot % kolom > 0) sorot--;
+                break;
+            case KEY_RIGHT:
+                if (sorot % kolom < kolom - 1 && sorot + 1 < totalLevel) sorot++;
+                break;
+            case '\n':
+                if (sorot < levelMaksTersedia) {
+                    return sorot + 1;
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+bool mainkanLevel(int level) {
+    clear();
+    const char* teksTarget = levelTeks[level - 1];
+
+    mvprintw(2, (COLS - strlen(teksTarget)) / 2, teksTarget);
+    mvprintw(LINES - 1, COLS - 12, "Ur Life: %d", nyawa);  
+    refresh();
+
+    string input;
+    int ch;
+    DWORD startTime = GetTickCount(); 
+
+    while ((ch = getch()) != '\n') {
+        if (ch == KEY_BACKSPACE || ch == 127) { 
+            if (!input.empty()) {
+                input.pop_back();
+                int inputLen = input.length();
+                mvprintw(4, (COLS - strlen(teksTarget)) / 2 + inputLen, " ");
+                move(4, (COLS - strlen(teksTarget)) / 2 + inputLen);
+            }
+        } else {
+            input.push_back(ch);
+        }
+
+        for (size_t i = 0; i < input.length(); ++i) {
+            if (i < strlen(teksTarget) && input[i] == teksTarget[i]) {
+                attron(COLOR_PAIR(2) | A_BOLD); 
+            } else {
+                attron(COLOR_PAIR(3) | A_BOLD); 
+            }
+            mvprintw(4, (COLS - strlen(teksTarget)) / 2 + i, "%c", input[i]);
+            attroff(COLOR_PAIR(2) | A_BOLD);
+            attroff(COLOR_PAIR(3) | A_BOLD);
+        }
+        refresh();
+    }
+
+    DWORD endTime = GetTickCount();  
+    double waktu = (endTime - startTime) / 1000.0;
+
+    clear();
+    if (input == teksTarget) {
+        double kataPerMenit = (input.length() / 5.0) / (waktu / 60.0);
+        mvprintw(LINES / 2 - 1, (COLS - 30) / 2, "Level %d succed!", level);
+        mvprintw(LINES / 2, (COLS - 50) / 2, "Time: %.2f Second | Speed: %.2f KPM", waktu, kataPerMenit);
+        mvprintw(LINES / 2 + 2, (COLS - 30) / 2, "Press any button to continue.");
+        refresh();
+        simpanSkorTertinggi(level, kataPerMenit, waktu);  
+        levelMaksTersedia++;  
+        getch();
+        return true;
+    } else {
+        mvprintw(LINES / 2, (COLS - 30) / 2, "Wrong text! ur life will be reduced.");
+        nyawa--; 
+        if (nyawa <= 0) {
+            mvprintw(LINES / 2 + 1, (COLS - 30) / 2, "Game over!.");
+            refresh();
+            getch();
+            return false;
+        }
+        mvprintw(LINES / 2 + 1, (COLS - 30) / 2, "Press any button to continue.");
+        refresh();
+        getch();
+        return true;
+    }
+}
