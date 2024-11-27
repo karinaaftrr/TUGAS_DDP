@@ -1,0 +1,31 @@
+Level 1: 24.6468 WPM, 6.32942 detik
+Level 1: 25.5934 WPM, 6.09533 detik
+Level 1: 28.9307 WPM, 5.3922 detik
+Level 1: 20.5928 WPM, 7.57546 detik
+Level 2: 30.1273 WPM, 6.37295 detik
+Level 1: 6.96673 detik
+Level 1: 5.9512 detik
+Level 1: 6.078 detik
+Level 1: 20.4656 WPM, 7.62254 detik
+Level 2: 32.0927 WPM, 5.98266 detik
+Level 3: 30.8057 WPM, 9.73846 detik
+Level 1: 24.0592 WPM, 6.484 detik
+Level 1: 14.366 WPM, 10.859 detik
+Level 1: 26.4811 WPM, 5.891 detik
+Level 1: 28.5244 WPM, 5.469 detik
+Level 2: 34.9091 WPM, 5.5 detik
+Level 1: 34.1955 WPM, 4.562 detik
+Level 1: 16.129 WPM, 9.672 detik
+Level 1: 24.6523 WPM, 6.328 detik
+Level 2: 22.4247 WPM, 8.562 detik
+Level 1: 24.8963 WPM, 6.266 detik
+Level 1: 23.8277 WPM, 6.547 detik
+Level 1: 30.7208 WPM, 5.078 detik
+Level 1: 25.0241 KPM, 6.234 second
+Level 1: 31.0078 KPM, 5.031 second
+Level 2: 26.0339 KPM, 7.375 second
+Level 3: 35.2941 KPM, 8.5 second
+Level 4: 47.048 KPM, 8.672 second
+Level 5: 44.216 KPM, 10.313 second
+Level 1: 25.6663 KPM, 6.078 second
+Level 2: 37.5807 KPM, 5.109 second
