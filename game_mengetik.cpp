@@ -48,3 +48,94 @@ void muatSkorTertinggi() {
         getch();
     }
 }
+void simpanSkorTertinggi(int level, double kataPerMenit, double waktu) {
+    fstream file(fileSkor, ios::in | ios::out | ios::app);
+    if (file) {
+        file << "Level " << level << ": " << kataPerMenit << " KPM, " 
+             << waktu << " second\n";
+        file.close();
+    }
+}
+
+void inisialisasiWarna() {
+    start_color();
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);  
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);  
+    init_pair(3, COLOR_RED, COLOR_BLACK);    
+    init_pair(4, COLOR_YELLOW, COLOR_BLACK); 
+    init_pair(5, COLOR_CYAN, COLOR_BLACK);   
+}
+
+void animasiTeks(const char* teks) {
+    clear();
+    int panjangTeks = strlen(teks);
+    int posisiX = (COLS - panjangTeks) / 2;
+    int posisiY = LINES / 2;
+
+    for (int warna = 1; warna <= 5; ++warna) {
+        attron(COLOR_PAIR(warna) | A_BOLD);
+        mvprintw(posisiY, posisiX, teks);
+        attroff(COLOR_PAIR(warna) | A_BOLD);
+        refresh();
+        Sleep(500); 
+    }
+    Sleep(1500); 
+}
+
+void animasiTeksBaris(const char* teks, int mulaiY, int mulaiX, int pasanganWarna) {
+    attron(COLOR_PAIR(5) | A_BOLD);
+    int panjangTeks = strlen(teks);
+
+    for (int i = 0; i < panjangTeks; ++i) {
+        mvprintw(mulaiY, mulaiX + i, "%c", teks[i]); 
+        refresh();
+        Sleep(100); 
+    }
+    attroff(COLOR_PAIR(1) | A_BOLD);
+}
+
+void tampilkanMenuAwal() {
+    int sorot = 0;
+    const char* opsi[] = { "Start Game", "Top Scores", "Exit?" };
+    int jumlahOpsi = sizeof(opsi) / sizeof(opsi[0]);
+
+    while (true) {
+        clear();
+        animasiTeksBaris("=== TYPERACER'S GAME ===", LINES / 2 - 3, (COLS - 22) / 2, 2);
+
+        for (int i = 0; i < jumlahOpsi; i++) {
+            if (i == sorot) {
+                attron(COLOR_PAIR(1) | A_REVERSE | A_BOLD);
+            } else {
+                attron(COLOR_PAIR(3) | A_BOLD);
+            }
+            mvprintw(LINES / 2 + i, (COLS - strlen(opsi[i])) / 2, opsi[i]);
+            attroff(COLOR_PAIR(3) | A_REVERSE | A_BOLD);
+            attroff(COLOR_PAIR(1) | A_BOLD);
+        }
+
+        refresh();
+        int ch = getch();
+        switch (ch) {
+            case KEY_UP:
+                if (sorot > 0) sorot--;
+                break;
+            case KEY_DOWN:
+                if (sorot < jumlahOpsi - 1) sorot++;
+                break;
+            case '\n':
+                if (sorot == 0) {
+                    return; 
+                } else if (sorot == 1) {
+                    clear();
+                    muatSkorTertinggi(); 
+                } else if (sorot == 2) {
+                    endwin();
+                    exit(0);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}
