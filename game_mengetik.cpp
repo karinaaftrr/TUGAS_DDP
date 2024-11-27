@@ -270,3 +270,8 @@ int main() {
     initscr();
     noecho();
     cbreak();
+    curs_set(0);
+    keypad(stdscr, TRUE);
+    inisialisasiWarna();
+
+    animasiTeks("Welcome to TYPERACER'S GAME!");
