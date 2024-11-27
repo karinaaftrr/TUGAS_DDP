@@ -275,3 +275,14 @@ int main() {
     inisialisasiWarna();
 
     animasiTeks("Welcome to TYPERACER'S GAME!");
+
+    tampilkanMenuAwal();
+        while (true) {
+            int level = tampilkanMenuLevel();
+            if (level == -1) break;
+            if (!mainkanLevel(level)) break;
+        }
+    
+        endwin();
+        return 0;
+}
