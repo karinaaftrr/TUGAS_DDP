@@ -265,3 +265,8 @@ bool mainkanLevel(int level) {
         return true;
     }
 }
+
+int main() {
+    initscr();
+    noecho();
+    cbreak();
