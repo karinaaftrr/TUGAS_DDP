@@ -90,7 +90,6 @@ void animasiTeks(const char* teks) {
         mvprintw(16, (COLS - 80) / 2, "                                                                                      ");
 
         attroff(COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3) | COLOR_PAIR(4) | COLOR_PAIR(5)); 
-
         refresh();
         Sleep(500);
     }  
