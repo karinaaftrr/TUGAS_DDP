@@ -68,18 +68,32 @@ void inisialisasiWarna() {
 
 void animasiTeks(const char* teks) {
     clear();
-    int panjangTeks = strlen(teks);
-    int posisiX = (COLS - panjangTeks) / 2;
-    int posisiY = LINES / 2;
+    for (int f = 0; f < 5; f++) {
+        switch (f) { 
+            case 0: attron(COLOR_PAIR(1)); 
+			break;  
+            case 1: attron(COLOR_PAIR(2)); 
+			break; 
+            case 2: attron(COLOR_PAIR(3)); 
+			break;  
+            case 3: attron(COLOR_PAIR(4)); 
+			break; 
+            case 4: attron(COLOR_PAIR(5));
+			 break; 
+        }
+        mvprintw(10, (COLS - 80) / 2, " |#         #|   |######   |##         #####      #######    |########|   |######      ");
+        mvprintw(11, (COLS - 80) / 2, " |#         #|   |#        |##       |#     #|   |#     #|   |########|   |#           ");
+        mvprintw(12, (COLS - 80) / 2, " |#   #|#   #|   |######   |##       |#          |#     #|   |#  ##  #|   |######      ");
+        mvprintw(13, (COLS - 80) / 2, " |#   #|#   #|   |######   |##       |#          |#     #|   |#  ##  #|   |######      ");
+        mvprintw(14, (COLS - 80) / 2, " |#   #|#   #|   |#        |######   |#     #|   |#     #|   |#  ##  #|   |#           ");
+        mvprintw(15, (COLS - 80) / 2, "    |##  ##|     |######   |######     #####      #######    |#  ##  #|   |######      ");
+        mvprintw(16, (COLS - 80) / 2, "                                                                                      ");
 
-    for (int warna = 1; warna <= 5; ++warna) {
-        attron(COLOR_PAIR(warna) | A_BOLD);
-        mvprintw(posisiY, posisiX, teks);
-        attroff(COLOR_PAIR(warna) | A_BOLD);
+        attroff(COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3) | COLOR_PAIR(4) | COLOR_PAIR(5)); 
+
         refresh();
-        Sleep(500); 
-    }
-    Sleep(1500); 
+        Sleep(500);
+    }  
 }
 
 void animasiTeksBaris(const char* teks, int mulaiY, int mulaiX, int pasanganWarna) {
@@ -274,7 +288,7 @@ int main() {
     keypad(stdscr, TRUE);
     inisialisasiWarna();
 
-    animasiTeks("Welcome to TYPERACER'S GAME!");
+    animasiTeks("");
 
     tampilkanMenuAwal();
         while (true) {
