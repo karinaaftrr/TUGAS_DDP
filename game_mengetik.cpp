@@ -112,9 +112,13 @@ void tampilkanMenuAwal() {
     const char* opsi[] = { "Start Game", "Top Scores", "Exit?" };
     int jumlahOpsi = sizeof(opsi) / sizeof(opsi[0]);
     bool isMenuAwalDitampilkan = false; 
-
+    clear();
+    animasiTeksBaris("=== TYPERACER'S GAME ===", LINES / 2 - 3, (COLS - 22) / 2, 2);
+    refresh();  
     while (true) {
-        clear();               
+        clear();
+	attron(COLOR_PAIR(5) | A_BOLD); 
+        mvprintw(LINES / 2 - 3, (COLS - 22) / 2, "=== TYPERACER'S GAME ===");              
         if (!isMenuAwalDitampilkan) {
             animasiTeksBaris("=== TYPERACER'S GAME ===", LINES / 2 - 3, (COLS - 22) / 2, 2);
             isMenuAwalDitampilkan = true; 
