@@ -111,11 +111,14 @@ void tampilkanMenuAwal() {
     int sorot = 0;
     const char* opsi[] = { "Start Game", "Top Scores", "Exit?" };
     int jumlahOpsi = sizeof(opsi) / sizeof(opsi[0]);
+    bool isMenuAwalDitampilkan = false; 
 
     while (true) {
-        clear();
-        animasiTeksBaris("=== TYPERACER'S GAME ===", LINES / 2 - 3, (COLS - 22) / 2, 2);
-
+        clear();               
+        if (!isMenuAwalDitampilkan) {
+            animasiTeksBaris("=== TYPERACER'S GAME ===", LINES / 2 - 3, (COLS - 22) / 2, 2);
+            isMenuAwalDitampilkan = true; 
+        }
         for (int i = 0; i < jumlahOpsi; i++) {
             if (i == sorot) {
                 attron(COLOR_PAIR(1) | A_REVERSE | A_BOLD);
@@ -124,10 +127,10 @@ void tampilkanMenuAwal() {
             }
             mvprintw(LINES / 2 + i, (COLS - strlen(opsi[i])) / 2, opsi[i]);
             attroff(COLOR_PAIR(3) | A_REVERSE | A_BOLD);
-            attroff(COLOR_PAIR(1) | A_BOLD);
+            attroff(COLOR_PAIR(1) | A_BOLD); 
         }
-
         refresh();
+
         int ch = getch();
         switch (ch) {
             case KEY_UP:
@@ -142,6 +145,7 @@ void tampilkanMenuAwal() {
                 } else if (sorot == 1) {
                     clear();
                     muatSkorTertinggi(); 
+                    isMenuAwalDitampilkan = false;			 
                 } else if (sorot == 2) {
                     endwin();
                     exit(0);
