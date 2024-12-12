@@ -180,10 +180,11 @@ int tampilkanMenuLevel() {
 
     while (true) {
         clear();
+        
         mvprintw(LINES / 2 - baris / 2 - 2, (COLS - 18) / 2, "=== Select Levels ===");
 
-        int mulaiY = (LINES - baris) / 2;
-        int mulaiX = (COLS - (kolom * 15)) / 2;
+        int mulaiY = (LINES - baris) / 1.7;
+        int mulaiX = (COLS - (kolom * 12)) / 2;
 
         for (int barisIndex = 0; barisIndex < baris; ++barisIndex) {
             for (int kolomIndex = 0; kolomIndex < kolom; ++kolomIndex) {
@@ -201,9 +202,17 @@ int tampilkanMenuLevel() {
                 } else {
                     mvprintw(posisiY, posisiX, "locked");
                 }
-                attroff(A_REVERSE | A_BOLD);
+                attroff(A_REVERSE);
             }
         }
+        
+        int posisiY = mulaiY + baris + 1;
+        if (totalLevel % kolom != 0) posisiY++;
+        if (sorot == totalLevel) {
+            attron(A_REVERSE | A_BOLD);
+        }
+        mvprintw(posisiY, (COLS - 20) / 2, "Back to Main Menu");
+        attroff(A_REVERSE);
 
         refresh();
 
@@ -214,6 +223,7 @@ int tampilkanMenuLevel() {
                 break;
             case KEY_DOWN:
                 if (sorot + kolom < totalLevel) sorot += kolom;
+                else if (sorot < totalLevel) sorot = totalLevel; 
                 break;
             case KEY_LEFT:
                 if (sorot % kolom > 0) sorot--;
@@ -222,8 +232,11 @@ int tampilkanMenuLevel() {
                 if (sorot % kolom < kolom - 1 && sorot + 1 < totalLevel) sorot++;
                 break;
             case '\n':
+                if (sorot == totalLevel) {
+                    return -1; 
+                }
                 if (sorot < levelMaksTersedia) {
-                    return sorot + 1;
+                    return sorot + 1; 
                 }
                 break;
             default:
