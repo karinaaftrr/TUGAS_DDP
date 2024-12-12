@@ -1,6 +1,7 @@
 #include <iostream>
 #include <ncurses/curses.h>
 #include <fstream>
+#include <string>
 #include <windows.h>
 using namespace std;
 
@@ -36,15 +37,12 @@ void muatSkorTertinggi() {
     ifstream file(fileSkor);
     if (file) {
         string baris;
-        mvprintw(1, 0, "== Highest Score =="); 
+        mvprintw(1, 1, "== Highest Score =="); 
         int y = 2;
         while (getline(file, baris)) {
             mvprintw(y++, 0, "%s", baris.c_str());
         }
         file.close();
-        getch();
-    } else {
-        mvprintw(1, 0, "There Are No Saved Scores Yet.");
         getch();
     }
 }
