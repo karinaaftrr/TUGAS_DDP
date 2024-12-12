@@ -45,6 +45,8 @@ void muatSkorTertinggi() {
         getch();
     }
 }
+
+   
 void simpanSkorTertinggi(int level, double kataPerMenit, double waktu) {
     fstream file(fileSkor, ios::in | ios::out | ios::app);
     if (file) {
