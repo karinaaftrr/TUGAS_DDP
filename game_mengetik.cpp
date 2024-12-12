@@ -64,12 +64,11 @@ void inisialisasiWarna() {
 }
 
 void animasiTeks(const char* teks) {
-    clear();
     for (int f = 0; f < 5; f++) {
         switch (f) { 
             case 0: attron(COLOR_PAIR(1)); 
 			break;  
-            case 1: attron(COLOR_PAIR(2)); 
+            case 1: attron(COLOR_PAIR(6)); 
 			break; 
             case 2: attron(COLOR_PAIR(3)); 
 			break;  
@@ -78,18 +77,32 @@ void animasiTeks(const char* teks) {
             case 4: attron(COLOR_PAIR(5));
 			 break; 
         }
-        mvprintw(10, (COLS - 80) / 2, " |#         #|   |######   |##         #####      #######    |########|   |######      ");
-        mvprintw(11, (COLS - 80) / 2, " |#         #|   |#        |##       |#     #|   |#     #|   |########|   |#           ");
-        mvprintw(12, (COLS - 80) / 2, " |#   #|#   #|   |######   |##       |#          |#     #|   |#  ##  #|   |######      ");
-        mvprintw(13, (COLS - 80) / 2, " |#   #|#   #|   |######   |##       |#          |#     #|   |#  ##  #|   |######      ");
-        mvprintw(14, (COLS - 80) / 2, " |#   #|#   #|   |#        |######   |#     #|   |#     #|   |#  ##  #|   |#           ");
-        mvprintw(15, (COLS - 80) / 2, "    |##  ##|     |######   |######     #####      #######    |#  ##  #|   |######      ");
-        mvprintw(16, (COLS - 80) / 2, "                                                                                       ");
+        mvprintw(10, (COLS - 80) / 2, "  ||         ||   |||||||   ||         |||||       |||||     ||||||||||   |||||||   ");
+        mvprintw(11, (COLS - 80) / 2, "  ||         ||   ||        ||       ||     ||   ||     ||   ||  ||  ||   ||        ");
+        mvprintw(12, (COLS - 80) / 2, "  ||   |||   ||   |||||||   ||       ||          ||     ||   ||  ||  ||   |||||||   ");
+        mvprintw(13, (COLS - 80) / 2, "  ||   |||   ||   |||||||   ||       ||          ||     ||   ||  ||  ||   |||||||   ");
+        mvprintw(14, (COLS - 80) / 2, "  ||   |||   ||   ||        ||       ||     ||   ||     ||   ||  ||  ||   ||        ");
+        mvprintw(15, (COLS - 80) / 2, "     | _  _ |     |||||||   |||||||    |||||       |||||     ||  ||  ||   |||||||   ");
+        mvprintw(16, (COLS - 80) / 2, "                                                                                     ");
 
-        attroff(COLOR_PAIR(1) | COLOR_PAIR(2) | COLOR_PAIR(3) | COLOR_PAIR(4) | COLOR_PAIR(5)); 
+        attroff(COLOR_PAIR(1) | COLOR_PAIR(6) | COLOR_PAIR(3) | COLOR_PAIR(4) | COLOR_PAIR(5)); 
         refresh();
-        Sleep(500);
+        Sleep(1500);
     }  
+    int posisiY = 18; 
+    int posisiX = (COLS - 15) / 2; 
+    for (int i = 0; i <= 3; i++) {
+        mvprintw(posisiY, posisiX, "-------------------");
+        mvprintw(posisiY + 1, posisiX, "[                 ]");
+        mvprintw(posisiY + 2, posisiX, "-------------------");
+
+        for (int j = 0; j <= 15; j++) {
+            mvprintw(posisiY + 1, posisiX + j + 1, ">");
+            refresh();
+            Sleep(200); 
+        }
+    }
+    refresh();
 }
 
 void animasiTeksBaris(const char* teks, int mulaiY, int mulaiX, int pasanganWarna) {
