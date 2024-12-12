@@ -106,7 +106,7 @@ void animasiTeks(const char* teks) {
 }
 
 void animasiTeksBaris(const char* teks, int mulaiY, int mulaiX, int pasanganWarna) {
-    attron(COLOR_PAIR(5) | A_BOLD);
+    attron(COLOR_PAIR(1));
     int panjangTeks = strlen(teks);
 
     for (int i = 0; i < panjangTeks; ++i) {
@@ -114,7 +114,7 @@ void animasiTeksBaris(const char* teks, int mulaiY, int mulaiX, int pasanganWarn
         refresh();
         Sleep(100); 
     }
-    attroff(COLOR_PAIR(1) | A_BOLD);
+    attroff(COLOR_PAIR(1));
 }
 
 void tampilkanMenuAwal() {
@@ -127,21 +127,20 @@ void tampilkanMenuAwal() {
     refresh();  
     while (true) {
         clear();
-	attron(COLOR_PAIR(5) | A_BOLD); 
+	attron(COLOR_PAIR(1)); 
         mvprintw(LINES / 2 - 3, (COLS - 22) / 2, "=== TYPERACER'S GAME ===");              
         if (!isMenuAwalDitampilkan) {
-            animasiTeksBaris("=== TYPERACER'S GAME ===", LINES / 2 - 3, (COLS - 22) / 2, 2);
             isMenuAwalDitampilkan = true; 
         }
         for (int i = 0; i < jumlahOpsi; i++) {
             if (i == sorot) {
-                attron(COLOR_PAIR(1) | A_REVERSE | A_BOLD);
+                attron(COLOR_PAIR(1) | A_REVERSE);
             } else {
-                attron(COLOR_PAIR(3) | A_BOLD);
+                attron(COLOR_PAIR(3));
             }
             mvprintw(LINES / 2 + i, (COLS - strlen(opsi[i])) / 2, opsi[i]);
-            attroff(COLOR_PAIR(3) | A_REVERSE | A_BOLD);
-            attroff(COLOR_PAIR(1) | A_BOLD); 
+            attroff(COLOR_PAIR(3));
+            attroff(COLOR_PAIR(1) | A_REVERSE); 
         }
         refresh();
 
@@ -170,6 +169,7 @@ void tampilkanMenuAwal() {
         }
     }
 }
+
 
 int tampilkanMenuLevel() {
     int sorot = 0;
