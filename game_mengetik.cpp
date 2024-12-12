@@ -235,7 +235,9 @@ bool mainkanLevel(int level) {
     const char* teksTarget = levelTeks[level - 1];
 
     mvprintw(2, (COLS - strlen(teksTarget)) / 2, teksTarget);
-    mvprintw(LINES - 1, COLS - 12, "Ur Life: %d", nyawa);  
+     mvprintw(LINES - 3, COLS - 15, "------------"); 
+    mvprintw(LINES - 4, COLS - 15, "[Ur Life: %d]", nyawa);  
+    mvprintw(LINES - 5, COLS - 15, "------------"); 
     refresh();
 
     string input;
